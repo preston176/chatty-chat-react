@@ -3,6 +3,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import { ChatBubbleOutline, MoreVertRounded, SearchOutlined } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
+import SidebarChat from './SidebarChat';
 
 
 function Sidebar() {
@@ -34,6 +35,13 @@ function Sidebar() {
 
             <div className="sidebar__chats">
                 {/* Chats */}
+                <SidebarChat />
+                <SidebarChat />
+                <SidebarChat />
+                <SidebarChat />
+                <SidebarChat />
+                <SidebarChat />
+                <SidebarChat />
             </div>
         </div>
     )
