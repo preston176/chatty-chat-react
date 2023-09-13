@@ -1,7 +1,7 @@
 import './Sidebar.css'
 import PersonIcon from '@mui/icons-material/Person';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
-import { ChatBubbleOutline, MoreVertRounded } from '@mui/icons-material';
+import { ChatBubbleOutline, MoreVertRounded, SearchOutlined } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 
 
@@ -26,7 +26,10 @@ function Sidebar() {
                 </div>
             </div>
             <div className="sidebar__search">
-
+                <div className="sidebar__searchContainer">
+                    <SearchOutlined />
+                    <input placeholder="Search ..." type='text' />
+                </div>
             </div>
 
             <div className="sidebar__chats">
