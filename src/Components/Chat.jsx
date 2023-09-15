@@ -4,11 +4,16 @@ import { useEffect, useState } from "react"
 import { AttachFile, InsertEmoticon, MicOutlined, MoreVert, SearchOutlined } from "@mui/icons-material";
 
 function Chat() {
+    const [input, setInput] = useState("")
     const [seed, setSeed] = useState("")
     useEffect(() => {
         setSeed(Math.floor(Math.random()) * 5000)
     }, []);
 
+    const sendMessage = (e) => {
+        //function to send msg
+        e.preventDefault();
+    }
     return (
         <div className='chat'>
             <div className="chat__header">
@@ -46,9 +51,9 @@ function Chat() {
                 {/* input  */}
 
                 <InsertEmoticon />
-                <form >
-                    <input placeholder="Type a message" type="text" />
-                    <button>Send a message</button>
+                <form>
+                    <input value={input} onChange={e => setInput(e.target.value)} placeholder="Type a message" type="text" />
+                    <button type="submit" onClick={sendMessage}>Send a message</button>
                 </form>
                 <MicOutlined />
             </div>
