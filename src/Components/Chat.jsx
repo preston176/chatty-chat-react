@@ -1,7 +1,7 @@
 import { Avatar, IconButton } from "@mui/material"
 import "./Chat.css"
 import { useEffect, useState } from "react"
-import { AttachFile, MoreVert, SearchOutlined } from "@mui/icons-material";
+import { AttachFile, InsertEmoticon, MicOutlined, MoreVert, SearchOutlined } from "@mui/icons-material";
 
 function Chat() {
     const [seed, setSeed] = useState("")
@@ -44,6 +44,13 @@ function Chat() {
             </div>
             <div className="chat__footer">
                 {/* input  */}
+
+                <InsertEmoticon />
+                <form >
+                    <input placeholder="Type a message" type="text" />
+                    <button>Send a message</button>
+                </form>
+                <MicOutlined />
             </div>
         </div>
     )
