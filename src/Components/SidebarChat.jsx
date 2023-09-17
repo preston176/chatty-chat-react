@@ -1,6 +1,8 @@
 import { Avatar } from '@mui/material'
 import './SidebarChat.css'
 import { useEffect, useState } from 'react'
+import { addDoc, collection } from 'firebase/firestore';
+import db from '../firebase';
 function SidebarChat({ addNewChat, name, id }) {
     const [seed, setSeed] = useState('')
 
@@ -10,12 +12,22 @@ function SidebarChat({ addNewChat, name, id }) {
     }, []);
 
     const createChat = () => {
-        const roomName = prompt("Please enter name for chat")
-        if (roomName) {
-            // database 
-        }
+        const roomName = prompt("Please enter a name for the chat");
 
-    }
+        if (roomName) {
+            // Reference to the 'rooms' collection and add a new document with a generated ID
+            const roomsRef = collection(db, 'rooms');
+            addDoc(roomsRef, {
+                name: roomName,
+            })
+                .then((docRef) => {
+                    console.log("Chat room created with ID: ", docRef.id);
+                })
+                .catch((error) => {
+                    console.error("Error creating chat room: ", error);
+                });
+        }
+    };
 
     return !addNewChat ? (
         <div className='sidebarChat'>
