@@ -4,9 +4,29 @@ import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import { ChatBubbleOutline, MoreVertRounded, SearchOutlined } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import SidebarChat from './SidebarChat';
+import { useState, useEffect } from 'react';
+import db from '../firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 
 function Sidebar() {
+    const [rooms, setRooms] = useState([]);
+    useEffect(() => {
+        const fetchRooms = async () => {
+            try {
+                const snapshot = await getDocs(collection(db,'rooms'));
+                const roomData = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    data: doc.data(),
+                }));
+                setRooms(roomData);
+            } catch (error) {
+                console.error("Error fetching rooms: ", error);
+            }
+        };
+
+        fetchRooms();
+    }, []);
     return (
         <div className='sidebar'>
             <div className="sidebar__header">
@@ -36,12 +56,9 @@ function Sidebar() {
             <div className="sidebar__chats">
                 {/* Chats */}
                 <SidebarChat addNewChat />
-                <SidebarChat />
-                <SidebarChat />
-                <SidebarChat />
-                <SidebarChat />
-                <SidebarChat />
-                <SidebarChat />
+                {rooms.map(room => (
+                    <SidebarChat key={room.id} id={room.id} name={room.data.name} />
+                ))}
             </div>
         </div>
     )
