@@ -1,33 +1,27 @@
-
-import './App.css'
-import Sidebar from './Components/Sidebar'
+import './App.css';
+import Sidebar from './Components/Sidebar';
 import Chat from './Components/Chat';
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
-
-
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/app" element={(
-          <div className='app'>
+      <div className="app">
+        <div className="app__body">
+          <Routes>
+            <Route path="/" element={<h1>Home Screen</h1>} />
+            <Route path="/app" element={(
+              <>
+                <Sidebar />
+                <Chat />
+              </>
 
-            <div className="app__body">
-              {/* Sidebar */}
-              <Sidebar />
-              <Chat />
-            </div>
-          </div>
-
-        )} />
-        <Route path='/' element={(
-          <h1>Home Screen</h1>
-        )} />
-
-      </Routes>
+            )} />
+          </Routes>
+        </div>
+      </div>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
