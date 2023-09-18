@@ -12,7 +12,7 @@ import { collection, getDocs } from 'firebase/firestore';
 function Sidebar() {
     const [rooms, setRooms] = useState([]);
     useEffect(() => {
-        const fetchRooms = async () => {
+        const unsubscribe = async () => {
             try {
                 const snapshot = await getDocs(collection(db,'rooms'));
                 const roomData = snapshot.docs.map(doc => ({
@@ -25,7 +25,9 @@ function Sidebar() {
             }
         };
 
-        fetchRooms();
+        return() =>{
+            unsubscribe();
+        };
     }, []);
     return (
         <div className='sidebar'>
