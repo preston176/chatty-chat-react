@@ -8,14 +8,17 @@ function App() {
     <BrowserRouter>
       <div className="app">
         <div className="app__body">
+          <Sidebar />
           <Routes>
-            <Route path="/" element={<h1>Home Screen</h1>} />
+            <Route path="/" />
             <Route path="/app" element={(
               <>
-                <Sidebar />
                 <Chat />
               </>
 
+            )} />
+            <Route path='/rooms/:roomId' element={(
+              <Chat />
             )} />
           </Routes>
         </div>
