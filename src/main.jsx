@@ -3,14 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import './index.css';
 import { StateProvider } from './StateProvider';
-
-const initialState = {
-  // Your initial state goes here
-};
-
-const reducer = (state, action) => {
-  // Your reducer logic goes here
-};
+import reducer, { initialState } from './reducer';
 
 const root = createRoot(document.getElementById('root'));
 
