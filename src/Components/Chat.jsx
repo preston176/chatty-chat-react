@@ -4,14 +4,17 @@ import { useEffect, useState } from "react"
 import { AttachFile, InsertEmoticon, MicOutlined, MoreVert, SearchOutlined } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
 import db from "../firebase";
-import { collection, doc, onSnapshot, orderBy, query } from "firebase/firestore";
+import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
+import { useStateValue } from './../StateProvider';
 
 function Chat() {
+
     const [input, setInput] = useState("")
     const [seed, setSeed] = useState("")
     const { roomId } = useParams();
     const [roomName, setRoomName] = useState("")
     const [messages, setMessages] = useState([])
+    const [{ user }, dispatch] = useStateValue()
     useEffect(() => {
         if (roomId) {
             // Room details listener
@@ -27,7 +30,7 @@ function Chat() {
             // Messages listener
             const messagesRef = collection(db, 'rooms', roomId, 'messages');
             const messagesUnsubscribe = onSnapshot(query(messagesRef, orderBy('timestamp', 'asc')), (snapshot) => {
-              
+
                 setMessages(snapshot.docs.map((doc) => doc.data()));
             });
 
@@ -45,10 +48,29 @@ function Chat() {
         setSeed(newSeed)
     }, [roomId])
 
-    const sendMessage = (e) => {
-        //function to send msg
+    const sendMessage = async (e) => {
         e.preventDefault();
-    }
+
+        // Assuming you have already initialized your Firebase app
+
+        // Get a reference to the 'messages' collection inside the specified room
+        const messagesRef = collection(db, 'rooms', roomId, 'messages');
+
+        try {
+            // Add a new message to the collection
+            const docRef = await addDoc(messagesRef, {
+                message: input,
+                name: user.displayName,
+                timestamp: serverTimestamp(),
+            });
+
+            setInput('')
+
+            console.log("Message sent with ID: ", docRef.id);
+        } catch (error) {
+            console.error("Error sending message: ", error);
+        }
+    };
     return (
         <div className='chat'>
             <div className="chat__header">
@@ -74,7 +96,7 @@ function Chat() {
             <div className="chat__body">
                 {messages.map((message, index) => (
 
-                    <div key={index} className={`chat__message ${true ? "chat__receiver" : ""}`}>
+                    <div key={index} className={`chat__message ${message.name === user.displayName && "chat__receiver"}`}>
 
                         <span className="chat__name">{message.name}</span>
                         <p>{message.message}
