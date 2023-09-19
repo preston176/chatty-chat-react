@@ -80,7 +80,7 @@ function Chat() {
                         <p>{message.message}
 
                             <span className="chat__timestamp">
-                                {message.timestamp.toDate().toLocaleTimeString('en-US')}
+                                {new Date(message.timestamp?.toDate()).toUTCString()}
                             </span>
                         </p>
                     </div>
