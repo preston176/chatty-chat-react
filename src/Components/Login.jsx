@@ -1,8 +1,17 @@
 import { Button } from '@mui/material'
 import './Login.css'
+import { provider } from '../firebase'
+import { getAuth, signInWithPopup } from 'firebase/auth';
 function Login() {
     const signIn = () => {
+        const auth = getAuth();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                console.log(result)
+            }).catch((error) => {
+                alert(error)
 
+            });
     }
 
     return (
