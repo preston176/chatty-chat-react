@@ -4,8 +4,10 @@ import { provider } from '../firebase'
 import { getAuth, signInWithPopup } from 'firebase/auth';
 import { useStateValue } from '../StateProvider';
 import { actionTypes } from '../reducer';
+
 function Login() {
-    const [{}, dispatch] = useStateValue();
+    const [{ }, dispatch] = useStateValue();
+
     const signIn = () => {
         const auth = getAuth();
         signInWithPopup(auth, provider)
@@ -14,6 +16,7 @@ function Login() {
                     type: actionTypes.SET_USER,
                     user: result.user,
                 })
+
             }).catch((error) => {
                 alert(error)
 

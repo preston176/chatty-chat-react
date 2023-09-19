@@ -4,36 +4,43 @@ import { useEffect, useState } from "react"
 import { AttachFile, InsertEmoticon, MicOutlined, MoreVert, SearchOutlined } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
 import db from "../firebase";
-import { doc, onSnapshot } from "firebase/firestore";
+import { collection, doc, onSnapshot, orderBy, query } from "firebase/firestore";
 
 function Chat() {
     const [input, setInput] = useState("")
     const [seed, setSeed] = useState("")
     const { roomId } = useParams();
     const [roomName, setRoomName] = useState("")
-
+    const [messages, setMessages] = useState([])
     useEffect(() => {
         if (roomId) {
+            // Room details listener
             const roomRef = doc(db, 'rooms', roomId);
-
-            const unsubscribe = onSnapshot(roomRef, (snapshot) => {
+            const roomUnsubscribe = onSnapshot(roomRef, (snapshot) => {
                 if (snapshot.exists()) {
                     setRoomName(snapshot.data().name);
                 } else {
-                    // Handle the case where the document doesn't exist
                     setRoomName('Room Not Found');
                 }
             });
 
+            // Messages listener
+            const messagesRef = collection(db, 'rooms', roomId, 'messages');
+            const messagesUnsubscribe = onSnapshot(query(messagesRef, orderBy('timestamp', 'asc')), (snapshot) => {
+              
+                setMessages(snapshot.docs.map((doc) => doc.data()));
+            });
+
             return () => {
-                // Unsubscribe from the snapshot listener when the component unmounts
-                unsubscribe();
+                // Unsubscribe from both listeners when the component unmounts
+                roomUnsubscribe();
+                messagesUnsubscribe();
             };
         }
     }, [roomId]);
 
     useEffect(() => {
-    
+
         const newSeed = Math.floor(Math.random() * 5000)
         setSeed(newSeed)
     }, [roomId])
@@ -65,15 +72,19 @@ function Chat() {
                 </div>
             </div>
             <div className="chat__body">
-                {/* texts */}
-                <div className={`chat__message ${true ? "chat__receiver" : ""}`}>
+                {messages.map((message, index) => (
 
-                    <span className="chat__name">pres</span>
-                    <p>Hello there
+                    <div key={index} className={`chat__message ${true ? "chat__receiver" : ""}`}>
 
-                        <span className="chat__timestamp">2:53 PM</span>
-                    </p>
-                </div>
+                        <span className="chat__name">{message.name}</span>
+                        <p>{message.message}
+
+                            <span className="chat__timestamp">
+                                {message.timestamp.toDate().toLocaleTimeString('en-US')}
+                            </span>
+                        </p>
+                    </div>
+                ))}
             </div>
             <div className="chat__footer">
                 {/* input  */}
