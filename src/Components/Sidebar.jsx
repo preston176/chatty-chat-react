@@ -2,19 +2,21 @@ import './Sidebar.css'
 import PersonIcon from '@mui/icons-material/Person';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import { ChatBubbleOutline, MoreVertRounded, SearchOutlined } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
+import { Avatar, IconButton } from '@mui/material';
 import SidebarChat from './SidebarChat';
 import { useState, useEffect } from 'react';
 import db from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import { useStateValue } from '../StateProvider';
 
 
 function Sidebar() {
     const [rooms, setRooms] = useState([]);
+    const [{ user }, dispatch] = useStateValue();
     useEffect(() => {
         const unsubscribe = async () => {
             try {
-                const snapshot = await getDocs(collection(db,'rooms'));
+                const snapshot = await getDocs(collection(db, 'rooms'));
                 const roomData = snapshot.docs.map(doc => ({
                     id: doc.id,
                     data: doc.data(),
@@ -25,7 +27,7 @@ function Sidebar() {
             }
         };
 
-        return() =>{
+        return () => {
             unsubscribe();
         };
     }, []);
@@ -33,7 +35,8 @@ function Sidebar() {
         <div className='sidebar'>
             <div className="sidebar__header">
                 <IconButton>
-                    <PersonIcon />
+                    <Avatar src={user?.photoURL} />
+               
                 </IconButton>
                 <div className="sidebar__headerRight">
                     <IconButton>

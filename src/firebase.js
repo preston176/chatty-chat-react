@@ -8,12 +8,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDOBKGhIQfFpNSWXdKVtr0nKD1s960LE50",
-    authDomain: "whatsapp-clone-cf67a.firebaseapp.com",
-    projectId: "whatsapp-clone-cf67a",
-    storageBucket: "whatsapp-clone-cf67a.appspot.com",
-    messagingSenderId: "130063218903",
-    appId: "1:130063218903:web:f3b184757dbb654c069892"
+    apiKey: "AIzaSyD_gTnQgyWt3h-rsG3wQACQxONYgh-r7Y0",
+    authDomain: "chatty-app-react-3076c.firebaseapp.com",
+    projectId: "chatty-app-react-3076c",
+    storageBucket: "chatty-app-react-3076c.appspot.com",
+    messagingSenderId: "794733566792",
+    appId: "1:794733566792:web:d33f95eed9eda817fb717d"
 };
 
 // Initialize Firebase
