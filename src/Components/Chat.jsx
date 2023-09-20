@@ -22,6 +22,7 @@ function Chat() {
             const roomUnsubscribe = onSnapshot(roomRef, (snapshot) => {
                 if (snapshot.exists()) {
                     setRoomName(snapshot.data().name);
+                    console.log(roomName)
                 } else {
                     setRoomName('Room Not Found');
                 }
@@ -30,7 +31,7 @@ function Chat() {
             // Messages listener
             const messagesRef = collection(db, 'rooms', roomId, 'messages');
             const messagesUnsubscribe = onSnapshot(query(messagesRef, orderBy('timestamp', 'asc')), (snapshot) => {
-
+                console.log(messages)
                 setMessages(snapshot.docs.map((doc) => doc.data()));
             });
 
