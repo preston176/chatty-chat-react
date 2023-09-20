@@ -5,10 +5,14 @@ Chatty-App is a real-time chat application built using React, Firebase Authentic
 ## Preview
 ![Alt text](image.png)
 
+## Live link
+- [Click here](https://chatty-app-react-3076c.web.app/)
+
 ## Table of Contents
 
 - [Chatty-App](#chatty-app)
   - [Preview](#preview)
+  - [Live link](#live-link)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Installation](#installation)
