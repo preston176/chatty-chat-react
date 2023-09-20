@@ -28,7 +28,8 @@ function Login() {
             <div className="login__container">
                 <img src='https://upload.wikimedia.org/wikipedia/commons/2/2a/Zendesk_Chat_Logo.png' />
                 <div className="login__text">
-                    <h1>Sign in</h1>
+                    <h1>Chatty app</h1>
+                    <p>Use your google account to get started</p>
                 </div>
 
                 <Button variant='contained' onClick={signIn}>

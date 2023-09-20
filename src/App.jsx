@@ -4,6 +4,7 @@ import Chat from './Components/Chat';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './Components/Login';
 import { useStateValue } from './StateProvider';
+import HomePage from './Components/HomePage';
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
           <div className="app__body">
             <Sidebar />
             <Routes>
-              <Route path="/" element={<h1>Home</h1>} />
+              <Route path="/" element={<HomePage />} />
               <Route path="/app" element={<Chat />} />
               <Route path="/rooms/:roomId" element={<Chat />} />
             </Routes>

@@ -2,11 +2,13 @@
 
 Chatty-App is a real-time chat application built using React, Firebase Authentication, and Firebase Firestore. This application allows users to sign in securely, join chat rooms, and engage in real-time conversations with other users.
 
-
+## Preview
+![Alt text](image.png)
 
 ## Table of Contents
 
 - [Chatty-App](#chatty-app)
+  - [Preview](#preview)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Installation](#installation)
