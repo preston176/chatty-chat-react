@@ -14,23 +14,27 @@ function Sidebar() {
     const [rooms, setRooms] = useState([]);
     const [{ user }, dispatch] = useStateValue();
     useEffect(() => {
-        const unsubscribe = async () => {
-            try {
-                const snapshot = await getDocs(collection(db, 'rooms'));
-                const roomData = snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    data: doc.data(),
-                }));
-                setRooms(roomData);
-            } catch (error) {
-                console.error("Error fetching rooms: ", error);
-            }
+        // Define an async function to fetch rooms
+        const fetchRooms = async () => {
+          try {
+            const snapshot = await getDocs(collection(db, 'rooms'));
+            const roomData = snapshot.docs.map(doc => ({
+              id: doc.id,
+              data: doc.data(),
+            }));
+            setRooms(roomData);
+          } catch (error) {
+            console.error("Error fetching rooms: ", error);
+          }
         };
-
-        return () => {
-            unsubscribe();
-        };
-    }, []);
+      
+        // Call the async function to fetch rooms
+        fetchRooms();
+      
+        // Return an empty function to unsubscribe (no need for async)
+        return () => {};
+      }, []);
+      
     return (
         <div className='sidebar'>
             <div className="sidebar__header">
